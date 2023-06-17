@@ -2,21 +2,31 @@
 
 NAME_PREDICT	=	predict
 NAME_TRAIN		=	train
+NAME_BONUS		=	bonus
 
 CC				=	c++ -std=c++17
-CFLAGS			=	-Wall -Werror -Wextra
+# CFLAGS			=	-Wall -Werror -Wextra
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
+PLOT_DIR		=	./plot
 
 SRC_P			=	predict.cpp
-SRC_T			=	train.cpp
+SRC_T			=	train.cpp \
+					read_data.cpp \
+					solve_linear_regression.cpp \
+					write_model.cpp
+SRC_B			=	bonus.cpp \
+					read_data.cpp \
+					solve_linear_regression.cpp
 
 OBJ_P			=	$(addprefix $(OBJ_DIR)/, $(SRC_P:.cpp=.o))
 OBJ_T			=	$(addprefix $(OBJ_DIR)/, $(SRC_T:.cpp=.o))
+OBJ_B			=	$(addprefix $(OBJ_DIR)/, $(SRC_B:.cpp=.o))
 
 $(OBJ_P)		: 	| $(OBJ_DIR)
 $(OBJ_T)		: 	| $(OBJ_DIR)
+$(OBJ_B)		: 	| $(OBJ_DIR)
 
 $(OBJ_DIR)		:
 					@mkdir -p $(OBJ_DIR)
@@ -36,7 +46,7 @@ C_GOOD			=	"\033[32m"
 SUCCESS			=	$(C_GOOD)SUCCESS$(C_NO)
 OK				=	$(C_OK)OK$(C_NO)
 
-all				:	$(NAME_PREDICT) $(NAME_TRAIN)
+all				:	$(NAME_PREDICT) $(NAME_TRAIN) $(NAME_BONUS) 
 
 $(NAME_PREDICT)	:	$(OBJ_P)
 					$(CC) $(CFLAGS) $(OBJ_P) -o $(NAME_PREDICT)
@@ -46,8 +56,13 @@ $(NAME_TRAIN)	:	$(OBJ_T)
 					$(CC) $(CFLAGS) $(OBJ_T) -o $(NAME_TRAIN)
 					@echo "\tCompiling...\t" [ $(NAME_TRAIN) ] $(SUCCESS)
 
+$(NAME_BONUS)	:	$(OBJ_B)
+					$(CC) $(CFLAGS) $(OBJ_B) -o $(NAME_BONUS)
+					@echo "\tCompiling...\t" [ $(NAME_BONUS) ] $(SUCCESS)
+
 clean			:
 					@$(RM_DIR) $(OBJ_DIR)
+					@$(RM_DIR) $(PLOT_DIR)
 					@echo "\tCleaning...\t" [ $(OBJ_DIR) ] $(OK)
 
 fclean			:	clean

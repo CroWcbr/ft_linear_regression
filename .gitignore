@@ -1,3 +1,6 @@
 obj
 predict
 train
+bonus
+plot
+data/model.csv

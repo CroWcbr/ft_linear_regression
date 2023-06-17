@@ -77,7 +77,12 @@ int main()
 		input_mileage(mileage))
 		return -1;
 
-	std::cout << "Linear_regression:\tf(x) = " << (a < 0 ? "-" : "")<< a << " * x " << (b < 0 ? "- " : "+ ") << b << std::endl;
-	std::cout << "Expected price :\t" << a * mileage + b << std::endl;
+	std::cout << "Linear_regression:\tf(x) = " << a << " * x ";
+	if (b < 0)
+		std::cout << "- " << -b << std::endl;
+	else
+		std::cout << "+ " << b << std::endl;
+	double price = a * mileage + b;
+	std::cout << "Expected price :\t" << (price < 0 ? 0 : price) << std::endl;
 	return 0;
 }
