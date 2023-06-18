@@ -5,7 +5,7 @@ NAME_TRAIN		=	train
 NAME_BONUS		=	bonus
 
 CC				=	c++ -std=c++17
-# CFLAGS			=	-Wall -Werror -Wextra
+CFLAGS			=	-Wall -Werror -Wextra
 
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
@@ -60,16 +60,22 @@ $(NAME_BONUS)	:	$(OBJ_B)
 					$(CC) $(CFLAGS) $(OBJ_B) -o $(NAME_BONUS)
 					@echo "\tCompiling...\t" [ $(NAME_BONUS) ] $(SUCCESS)
 
+MODEL_PATH		=	./data/model.csv
 clean			:
-					@$(RM_DIR) $(OBJ_DIR)
 					@$(RM_DIR) $(PLOT_DIR)
+					@echo "\tCleaning...\t" [ $(PLOT_DIR) ] $(OK)
+					@$(RM_FILE) $(MODEL_PATH)
+					@echo "\tCleaning...\t" [ $(MODEL_PATH) ] $(OK)
+					@$(RM_DIR) $(OBJ_DIR)
 					@echo "\tCleaning...\t" [ $(OBJ_DIR) ] $(OK)
 
 fclean			:	clean
 					@$(RM_FILE) $(NAME_PREDICT)
 					@$(RM_FILE) $(NAME_TRAIN)
+					@$(RM_FILE) $(NAME_BONUS)
 					@echo "\tDeleting...\t" [ $(NAME_PREDICT) ] $(OK)
 					@echo "\tDeleting...\t" [ $(NAME_TRAIN) ] $(OK)
+					@echo "\tDeleting...\t" [ $(NAME_BONUS) ] $(OK)
 
 re				:	fclean all
 
